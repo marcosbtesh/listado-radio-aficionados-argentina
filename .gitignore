@@ -1,0 +1,5 @@
+_dev/
+parsed_list.txt
+output/
+/.venv
+/.DS_Store
