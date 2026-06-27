@@ -110,15 +110,15 @@ def generateExcel(parsed_list):
     ws.append(TABLE_FORMAT)
 
     # print(parsed_list[0:2])
-    for column in TABLE_FORMAT:
-        print(f"Column in table format - {column}")
+    # for column in TABLE_FORMAT:
+    #     print(f"Column in table format - {column}")
 
-        for radio_afficionado in parsed_list:
-            # print(f"Radio Afficionado - {radio_afficionado}")
-            ws.append(radio_afficionado.split("\n"))
-            # for radio_afficionado_data in radio_afficionado.split("\n"):
-            #     print(f"Data - {radio_afficionado_data}")
-            #     (ws.append(radio_afficionado_data))
+    for radio_afficionado in parsed_list:
+        # print(f"Radio Afficionado - {radio_afficionado}")
+        ws.append(radio_afficionado.split("\n"))
+        # for radio_afficionado_data in radio_afficionado.split("\n"):
+        #     print(f"Data - {radio_afficionado_data}")
+        #     (ws.append(radio_afficionado_data))
     wb.save(f"{OUTPUT_DIR}/listado.xlsx")
 
 
