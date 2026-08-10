@@ -53,6 +53,7 @@ DATE_RE = re.compile(r"^(\d{4})-(\d{2})-(\d{2})")
 
 DEFAULT_XLSX = Path("output/listado.xlsx")
 DEFAULT_TXT = Path("parsed_list.txt")
+DEFAULT_REPORT_XLSX = Path("output/senales_disponibles.xlsx")
 
 ALPHABET = string.ascii_uppercase
 
@@ -572,6 +573,10 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
                         help="Recency half-life in days for the activity model (default: 365).")
     parser.add_argument("--top", type=int, default=20, help="How many call signs to show.")
     parser.add_argument("--json", action="store_true", help="Emit JSON instead of a report.")
+    parser.add_argument("--excel", nargs="?", type=Path, const=DEFAULT_REPORT_XLSX, default=None,
+                        metavar="PATH",
+                        help=f"Also write the full ranking to an .xlsx workbook "
+                             f"(default: {DEFAULT_REPORT_XLSX}).")
     return parser.parse_args(argv)
 
 
@@ -604,6 +609,13 @@ def main(argv: Sequence[str] | None = None) -> int:
         numerals=args.numeral,
     )
     neighbours = neighbours_in_city(licences, args.city, limit=15)
+
+    if args.excel is not None:
+        from excel_report import write_report
+
+        path, rows = write_report(args.excel, report, blocks, neighbours, category, length)
+        print(f"Wrote {rows:,} candidate call signs across {len(blocks):,} blocks to {path}",
+              file=sys.stderr)
 
     if args.json:
         payload = {

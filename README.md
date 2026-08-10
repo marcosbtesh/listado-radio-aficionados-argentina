@@ -3,7 +3,11 @@
 Dos scripts en Python:
 
 - **`main.py`** descarga el padrón público de radioaficionados de ENACOM y lo guarda en Excel.
-- **`predict_callsign.py`** usa ese padrón para listar las señales distintivas que todavía están libres para tu domicilio.
+- **`predict_callsign.py`** usa ese padrón para listar las señales distintivas que todavía están libres para tu domicilio, y también puede exportar el resultado a Excel.
+
+El archivo Excel que genera tiene cuatro hojas: **Resumen**, **Bloques**,
+**Señales libres** (una fila por señal, para filtrar y ordenar) y **Licencias
+locales** (si indicás una ciudad).
 
 ## Instalación
 
@@ -60,6 +64,18 @@ Mostrar más resultados:
 
 ```bash
 .venv/bin/python predict_callsign.py --province "BUENOS AIRES" --top 30
+```
+
+Exportar el ranking completo a Excel (genera `output/senales_disponibles.xlsx`):
+
+```bash
+.venv/bin/python predict_callsign.py --province "BUENOS AIRES" --excel
+```
+
+Exportar a Excel eligiendo la ruta del archivo:
+
+```bash
+.venv/bin/python predict_callsign.py --province "BUENOS AIRES" --excel mis_senales.xlsx
 ```
 
 Salida en JSON, para procesar con otro programa:

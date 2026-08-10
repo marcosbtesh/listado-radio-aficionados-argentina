@@ -3,3 +3,4 @@ parsed_list.txt
 output/
 /.venv
 /.DS_Store
+__pycache__/
